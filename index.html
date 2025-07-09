@@ -64,7 +64,7 @@
         window.currentPrompt = 0;
 
         $(`.p-${currentPrompt} > #prompt`).on('keyup', function (e) {
-            if(e.key === 'Enter' || e.keyCode === 13 && $.text !== "")
+            if(e.key === 'Enter' || e.keyCode === 13)
             {
                 runPrompt();   
             }
@@ -97,11 +97,18 @@
                     runPrompt();   
                 }
             });
+
+            $('#term-wrapper').scroll();
+        }
+
+        function prompt()
+        {
+            return $(`.p-${currentPrompt} > #prompt`).val()
         }
 
         function runPrompt()
         {
-            if($("#prompt").length <= 0) return;
+            if(prompt().length <= 0) return;
 
             var currentlyRunning = "none";
 
