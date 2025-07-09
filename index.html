@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <style>
+        :root {
+            --bg: #555;
+            --pbg: #777;
+            --fg: #fff;
+        }
+        body {
+            max-width: 900px;
+            margin: auto;
+            padding: 0;
+
+            background-color: var(--bg);
+            color: var(--fg);
+        }
+
+        #main-wrapper {
+            background-color: #000;
+            width: 100%;
+            max-height: 100vh;
+        }
+
+        #term-wrapper {
+            overflow-y: scroll;
+            max-height: 80vh;
+            scroll-behavior: smooth;
+        }
+
+        #prompt {
+            max-width: 100%;
+            min-width: 95%;
+            
+            background-color: var(--pbg);
+            color: var(--fg);
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-wrapper">
+        <div id="top-info">
+            <h1>Leandro Lopes M.</h1>
+            <sub>Portfolio.js v0.01</sub>
+            <hr>
+        </div>
+        <div id="term-wrapper">
+            <div class="p-0">
+                <label for="prompt">> </label>
+                <input type="text" name="prompt" spellcheck="false" minlength="1" placeholder="Type 'help'" id="prompt">
+                <div id="output"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.currentPrompt = 0;
+
+        $(`.p-${currentPrompt} > #prompt`).on('keyup', function (e) {
+            if(e.key === 'Enter' || e.keyCode === 13 && $.text !== "")
+            {
+                runPrompt();   
+            }
+        });
+
+        function printErr(msg)
+        {
+            $(`.p-${currentPrompt} > #output`).text(msg);
+            $(`.p-${currentPrompt} > #output`).css('color', 'rgb(255, 100, 100)');
+        }
+
+        function newPrompt()
+        {
+            $('#term-wrapper')
+                .append(
+                    $(`<div class="p-${++currentPrompt}"></div>`)
+                        .append(
+                            $('<label for="prompt">> </label>'),
+                            $('<input type="text" name="prompt" spellcheck="false" placeholder="Type \'help\'" id="prompt">'),
+                            $('<div id="output"></div>')
+                        )
+                )
+
+            $(`.p${currentPrompt - 1} > #prompt`).off('keyup');
+            $(`.p${currentPrompt - 1} > #prompt`).prop('disabled', true);
+
+            $(`.p-${currentPrompt} > #prompt`).on('keyup', function (e) {
+                if(e.key === 'Enter' || e.keyCode === 13)
+                {
+                    runPrompt();   
+                }
+            });
+        }
+
+        function runPrompt()
+        {
+            if($("#prompt").length <= 0) return;
+
+            var currentlyRunning = "none";
+
+            try {
+                throw Error("Weeber")
+            }
+            catch(error)
+            {
+                console.log(`${currentlyRunning} faulted!`);
+                console.log(error);
+                printErr(`${currentlyRunning.name} failed: ${error.message}`);
+            }
+
+            newPrompt();
+        }
+    </script>
+</body>
+</html>
