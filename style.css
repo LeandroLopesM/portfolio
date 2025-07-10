@@ -1,0 +1,74 @@
+:root {
+    --bg: #555;
+    --pbg: #777;
+    --fg: #fff;
+    --xt: #ff0565;
+}
+
+body {
+    max-width: 900px;
+    margin: auto;
+    padding: 0;
+
+    padding-top: 2rem;
+
+    background-color: var(--bg);
+    color: var(--fg);
+
+    font-family: monospace;
+}
+
+#output {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+#main-wrapper {
+    background-color: #000;
+    width: 100%;
+    max-height: 100vh;
+}
+
+#term-wrapper {
+    overflow-y: scroll;
+    max-height: 80vh;
+    scroll-behavior: smooth;
+}
+
+#prompt {
+    max-width: 100%;
+    min-width: 95%;
+
+    background-color: var(--pbg);
+    color: var(--fg);
+    border: none;
+}
+
+a {
+    color: var(--xt);
+    border: none;
+    border: 1px dashed;
+    border-bottom: var(--xt);
+}
+
+#colorschemes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    overflow-x: hidden;
+    height: 2rem;
+    gap: 0px;
+
+    padding: 1rem;
+}
+
+button {
+    flex: 1; /* each button takes equal space */
+    height: 100%; /* full height of container */
+    width: 5%; /* each button takes 10% of container width */
+    margin: 0;
+    padding: 0;
+
+    border: none;
+}
