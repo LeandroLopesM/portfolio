@@ -12,14 +12,25 @@
             --bg: #555;
             --pbg: #777;
             --fg: #fff;
+            --xt: #ff0565;
         }
+
         body {
             max-width: 900px;
             margin: auto;
             padding: 0;
 
+            padding-top: 2rem;
+
             background-color: var(--bg);
             color: var(--fg);
+
+            font-family: monospace;
+        }
+
+        #output {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
         }
 
         #main-wrapper {
@@ -37,14 +48,49 @@
         #prompt {
             max-width: 100%;
             min-width: 95%;
-            
+
             background-color: var(--pbg);
             color: var(--fg);
+            border: none;
+        }
+
+        a {
+            color: var(--xt);
+            border: none;
+            border: 1px dashed;
+            border-bottom: var(--xt);
+        }
+
+        #colorschemes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            overflow-x: hidden;
+            height: 2rem;
+            gap: 0px;
+
+            padding: 1rem;
+        }
+
+        button {
+            flex: 1; /* each button takes equal space */
+            height: 100%; /* full height of container */
+            width: 5%; /* each button takes 10% of container width */
+            margin: 0;
+            padding: 0;
+
             border: none;
         }
     </style>
 </head>
 <body>
+    <div id="colorschemes">
+        <input type="button" style="background-color: #fff;" onclick="setColorScheme('Plain')">Plain</input>
+        <input type="button" style="background-color: #ff4a72;" onclick="setColorScheme('Ascocia')">Ascocia</input>
+        <input type="button" style="background-color: #B51628;" onclick="setColorScheme('Ternure')">Ternure</input>
+        <input type="button" style="background-color: #33cc33;" onclick="setColorScheme('Contrast')">Contrast</input>
+    </div>
     <div class="main-wrapper">
         <div id="top-info">
             <h1>Leandro Lopes M.</h1>
@@ -60,70 +106,6 @@
         </div>
     </div>
 
-    <script>
-        window.currentPrompt = 0;
-
-        $(`.p-${currentPrompt} > #prompt`).on('keyup', function (e) {
-            if(e.key === 'Enter' || e.keyCode === 13)
-            {
-                runPrompt();   
-            }
-        });
-
-        function printErr(msg)
-        {
-            $(`.p-${currentPrompt} > #output`).text(msg);
-            $(`.p-${currentPrompt} > #output`).css('color', 'rgb(255, 100, 100)');
-        }
-
-        function newPrompt()
-        {
-            $('#term-wrapper')
-                .append(
-                    $(`<div class="p-${++currentPrompt}"></div>`)
-                        .append(
-                            $('<label for="prompt">> </label>'),
-                            $('<input type="text" name="prompt" spellcheck="false" placeholder="Type \'help\'" id="prompt">'),
-                            $('<div id="output"></div>')
-                        )
-                )
-
-            $(`.p${currentPrompt - 1} > #prompt`).off('keyup');
-            $(`.p${currentPrompt - 1} > #prompt`).prop('disabled', true);
-
-            $(`.p-${currentPrompt} > #prompt`).on('keyup', function (e) {
-                if(e.key === 'Enter' || e.keyCode === 13)
-                {
-                    runPrompt();   
-                }
-            });
-
-            $('#term-wrapper').scroll();
-        }
-
-        function prompt()
-        {
-            return $(`.p-${currentPrompt} > #prompt`).val()
-        }
-
-        function runPrompt()
-        {
-            if(prompt().length <= 0) return;
-
-            var currentlyRunning = "none";
-
-            try {
-                throw Error("Weeber")
-            }
-            catch(error)
-            {
-                console.log(`${currentlyRunning} faulted!`);
-                console.log(error);
-                printErr(`${currentlyRunning.name} failed: ${error.message}`);
-            }
-
-            newPrompt();
-        }
-    </script>
+    <script src="main.js"></script>
 </body>
 </html>
