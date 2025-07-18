@@ -7,42 +7,7 @@ if(typeof JQuery === undefined)
                 utils.js
 ****************************************/
 
-const VERSION = "0.0.1";
-
-function setColorScheme(scheme)
-{
-    let schemeLib = {
-        ['Plain']: {
-            pbg: '#777',
-            xt: '#ff0565',
-            fg: '#fff',
-            bg: '#555',
-        },
-        ['Ascocia']: {
-            pbg: '#777',
-            xt:  '#ff4a72',
-            fg:  '#ff98ae',
-            bg:  '#ffccd7',
-        },
-        ['Ternure']: {
-            pbg: '#333',
-            xt:  '#B51628',
-            fg:  '#ffaaaa',
-            bg:  '#aa7777',
-        },
-        ['Contrast']: {
-            pbg: '#333',      //promptBg
-            xt:  '#33cc33',      //accent
-            fg:  '#fff',         //foreground
-            bg:  '#000',         //background
-        },
-    }
-
-    document.documentElement.style.setProperty("--bg", schemeLib[scheme].bg);
-    document.documentElement.style.setProperty("--pbg", schemeLib[scheme].pbg);
-    document.documentElement.style.setProperty("--fg", schemeLib[scheme].fg);
-    document.documentElement.style.setProperty("--xt", schemeLib[scheme].xt);
-}
+const VERSION = "1.0.2";
 
 function format(str)
 {
@@ -116,7 +81,6 @@ function table()
 
 
         if(args.length <= 1) {
-        console.log(args);
         print("<Leandro Lopes Marciano da Encarnação:>(font-size: 2rem; color: #aaffaa)\n\
         *17 y.o. IT Student at IFPR.!*\n\
         :T:\
@@ -134,7 +98,7 @@ function table()
             - Serizz: Serialization lib in pure C.\n\
             - Markov: Markov sentence generator in C++.\n\
             - Portfolio.js: Terminal-style js portfolio page.\n\
-        :/T:");
+        :/T:\n\t\t**Available information for:**\n\t\t'projects', 'author', 'education'");
         }
         else {
             switch(args[1])
@@ -232,14 +196,23 @@ function table()
         }
     }
 
+    function contact(args)
+    {
+        print("\t[EMAIL](mailto:leandrolopes.tinfem2023@gmail.com)\t[GITHUB](https://github.com/leandrolopesm)");
+        print("\t\n\n");
+    }
+
     return {
         ['help']: function(...args) {
             print(`Portfolio.js v${VERSION}<br>`);
-            print("\nhelp [?cmd]\n\t[cmd] -> If provided, displays information only about that command.\n\tDisplays information about available programs");
-            print("\info [?subject]\n\t>\t[?subject] -> Shows further detailed information regarding a subject\n\tShows information about miscellaneous topics.");
+            print("\n*help*\n\t> Displays information about available programs");
+            print("\n*info [?subject]*\n\t> Shows information about miscellaneous topics.\n\t\t> ?subject -> Shows further detailed information regarding a specific subject");
+            print("\n*docs ?project*\n\t> Displays documentation regarding a project.\n\t\t> ?project -> if not provided, lists available options");
+            print("\n*contact*\n\t> Displays contact information.");
         },
         ['info']: info,
         ['docs']: docs,
+        ['contact']: contact,
     }
 }
 
@@ -283,8 +256,7 @@ function newPrompt()
 
     $(`.p-${currentPrompt} > #prompt`).focus();
 
-
-    $('#term-wrapper').scroll();
+    $("#term-wrapper").animate({ scrollTop: $("#term-wrapper").height() }, 1000);
 }
 
 function prompt()
