@@ -15,7 +15,7 @@ function format(str)
     
     str = str.replace(/\{([^\}]+)\}\(([^)]+)\)/gm, "<span style=\"color: $2;\">$1</span>");
     
-    str = str.replace(/[^\\]<([^>]+)>\(([^)]+)\)/gm, "<span style=\"$2\">$1</span>");
+    str = str.replace(/[^\\]?<([^>]+)>\(([^)]+)\)/gm, "<span style=\"$2\">$1</span>");
     str = str.replace(/!\*\*/gm, "</b>");
     str = str.replace(/\*\*/gm, "<b>");
     
@@ -81,8 +81,8 @@ function table()
 
 
         if(args.length <= 1) {
-        print("<Leandro Lopes Marciano da Encarnação:>(font-size: 2rem; color: #aaffaa)\n\
-        *17 y.o. IT Student at IFPR.!*\n\
+        print("<Leandro Lopes Marciano da Encarnação:>(font-size: 1rem; color: var(--xt)\n\
+        *17 y.o. IT Student at IFPR.*\n\
         :T:\
                 [Github](https://github.com/leandrolopesm)\n\n\
                 Languages: \n\
