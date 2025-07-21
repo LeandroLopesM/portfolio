@@ -219,8 +219,6 @@ function table()
 /****************************************
                 main.js
 ****************************************/
- 
-
 window.currentPrompt = 0;
 
 let commands = table();

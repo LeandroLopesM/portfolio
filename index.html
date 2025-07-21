@@ -27,12 +27,7 @@
     <script src="main.js"></script>
 
     <script>
-        $(`.p-${currentPrompt} > #prompt`).on('keyup', function (e) {
-            if(e.key === 'Enter' || e.keyCode === 13)
-            {
-                runPrompt();
-            }
-        });
+        $(`.p-${currentPrompt} > #prompt`).on('keyup', promptHandler);
 
         function newPrompt()
         {
@@ -49,14 +44,17 @@
             $(`.p${currentPrompt - 1} > #prompt`).off('keyup');
             $(`.p${currentPrompt - 1} > #prompt`).prop('disabled', true);
 
-            $(`.p-${currentPrompt} > #prompt`).on('keyup', function (e) {
-                if(e.key === 'Enter' || e.keyCode === 13)
-                {
-                    runPrompt();
-                }
-            });
+            $(`.p-${currentPrompt} > #prompt`).on('keyup', promptHandler);
 
             $(`.p-${currentPrompt} > #prompt`).focus();
+        }
+
+        function promptHandler(event)
+        {
+            if(event.key === 'Enter' || event.keyCode === 13)
+            {
+                runPrompt();
+            }
         }
 
         function prompt()
