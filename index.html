@@ -49,11 +49,29 @@
             $(`.p-${currentPrompt} > #prompt`).focus();
         }
 
+        let historyIndex = 0;
+
         function promptHandler(event)
         {
             if(event.key === 'Enter' || event.keyCode === 13)
             {
                 runPrompt();
+            }
+            else if(event.key === 'ArrowUp' || event.keyCode === 38)
+            {
+                if(currentPrompt - historyIndex >= 0)
+                {
+                    console.log('Arrow to ', currentPrompt - historyIndex);
+                    $(`.p-${currentPrompt} > #prompt`).val($(`.p-${currentPrompt - ++historyIndex} > #prompt`).val());
+                }
+            }
+            else if(event.key === 'ArrowDown' || event.keyCode === 40)
+            {
+                if(historyIndex - 1 >= 0)
+                {
+                    if(historyIndex - 1 === 0) $(`.p-${currentPrompt} > #prompt`).val('');
+                    else $(`.p-${currentPrompt} > #prompt`).val($(`.p-${currentPrompt - --historyIndex} > #prompt`).val());
+                }
             }
         }
 
@@ -85,7 +103,7 @@
             }
 
             newPrompt();
-
+            historyIndex = 0;
             $("#term-wrapper").animate({ scrollTop: $("#term-wrapper").height() }, 10);
         }
     </script>
